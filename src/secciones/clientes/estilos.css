@@ -1,0 +1,27 @@
+:root {
+    --principal: #192233;
+    --secundario:#212c42;
+    --blueCrayola: #6781f7;
+    --textoSecundario:#707D96;
+    --warning:#FD8A24;
+    --sucefull:#30E155;
+    --azul:#007bff;
+}
+.tab-clientes a{
+    background-color:var(--principal);
+    color: #ffff;
+}
+.tab-clientes a:hover{
+    background-color:var(--secundario);
+    color: #ffff;
+    border: none;
+}
+.nav-tabs {
+    border: none;
+}
+.nav-tabs .active{
+    background-color:var(--azul) !important;
+    color: #ffff !important;
+    border: none;
+    border-radius: .3rem;
+}

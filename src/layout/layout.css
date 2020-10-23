@@ -1,0 +1,223 @@
+:root {
+    --principal: #192233;
+    --secundario:#212c42;
+    --blueCrayola: #6781f7;
+    --textoSecundario:#707D96;
+    --warning:#FD8A24;
+    --sucefull:#30E155;
+}
+/*--------Tipografias-------*/
+@font-face{
+    font-family: PT-ROOT-Regular;
+    src: url('fonts/UI_Regular.woff');
+}
+@font-face{
+    font-family: PT-ROOT-Medium;
+    src: url('fonts/UI_Medium.woff');
+}
+@font-face{
+    font-family: PT-ROOT-Bold;
+    src: url('fonts/UI_Bold.woff');
+}
+/*--------Tipografias-------*/
+body {
+    overflow: hidden;
+    font-family: 'Muli', sans-serif;
+    font-weight: 300;
+    background-color: var(--principal) !important;
+    color: #ffffff !important;
+    font-family: PT-ROOT-Regular !important ;
+}
+.row{ 
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+a:hover {
+    text-decoration: none;
+}
+
+.bg-principal { background-color: var(--principal) !important; }
+
+.bg-secundario { background-color: var(--secundario) !important; }
+
+.bg-blue { background-color: var(--blueCrayola) !important; color: #ffffff !important; }
+
+.bg-peligro{background-color: var(--warning) !important; color: #ffffff !important; }
+
+.bg-correcto{background-color: var(--sucefull) !important; color: #ffffff !important; }
+
+.bg-text-blue { color: var(--blueCrayola) !important; }
+
+.bg-text-secundario{color: var(--textoSecundario) !important;}
+
+.btn-primary {
+    background-color: var(--primary);
+    border: 0;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary);
+}
+
+#sidebar-container {
+    overflow-y: auto;   
+    min-height: 100vh;
+}
+  
+#sidebar-container .logo{
+    padding: 0.875rem 1.25rem;
+}
+  
+#sidebar-container .menu {
+    width: 15rem;
+}
+
+#content {
+    overflow-y: auto;
+    height: 100vh;
+    border-radius: 4rem;
+}
+
+.img-perfil{
+    width: 7rem;
+    min-height: 7rem;
+    border:5px solid var(--blueCrayola);
+}
+
+@media (max-width: 768px) {
+    #sidebar-container {
+      display: none;
+    }
+}
+/*----Textos------*/
+.h-small{
+    font-family: PT-ROOT-Bold;
+    font-size: 1rem;
+}
+.span-small{
+    font-size: .7rem;
+    color: var(--blueCrayola);
+}
+
+/*----Textos------*/
+
+/*----BOTONES------*/
+.button-nivel{
+    background-color: var(--blueCrayola) !important;
+    color: #ffffff !important;
+    border-radius: 2rem !important;
+}
+.button-sidebar{
+    color: var(--textoSecundario);
+    text-decoration: none;
+    transition: ease .3s; 
+    border-left: 0;
+}
+.button-sidebar:hover{
+    color:#ffffff;
+    text-decoration: none;
+    transition: ease .3s;
+    border-left: 5px solid var(--blueCrayola);
+}
+.button-sidebarSelect{
+    color:#ffffff;
+    text-decoration: none;
+    transition: ease .3s;
+    border-left: 5px solid var(--blueCrayola);
+}
+.button-sidebarSelect:hover{
+    color:#ffffff;
+    text-decoration: none;
+    transition: ease .3s;
+    border-left: 5px solid var(--blueCrayola);
+}
+/*-----BOTONES--------*/
+/*-----SECCIONES------*/
+.section h1{
+    font-family: PT-ROOT-Bold;
+    margin-left: 2rem;
+}
+.cardGeneral{
+    border-radius: 1rem !important;
+    padding: 1rem !important;
+    background-color: var(--principal) !important;
+    margin: .5rem;  
+}
+.card{
+    border-top-right-radius: 1rem !important;
+    border-top-left-radius: 1rem !important; 
+}
+.card-header{
+    border-top-right-radius: 1rem !important;
+    border-top-left-radius: 1rem !important;
+}
+.navbarTareas{
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+}
+/*-----SECCIONES Sidebar-Right------*/
+
+#page-content-container{
+    min-width: 0;
+    width: 100%;
+}
+#sidebar-right{
+    margin-right: -100rem;
+    transition: margin .25s ease-out;
+}
+.toggled #sidebar-right{
+    margin-right: 0;
+    min-width: 45%;
+    max-width: 450%;
+}
+#wrapper-Container {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-bottom: 5rem;
+}
+
+/*-----SPINNENR-----*/
+.spinner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/*-----SPINNNER-----*/
+/*---ALERTS------*/
+#alert{
+    position: fixed;
+    z-index: 10000;
+    width: 15rem;
+    border-radius: .5rem;
+    padding: .8rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-left: 0.5%;
+    margin-bottom: -20%;
+    transition: ease .5s;
+}
+#alert.toggled{
+    margin-bottom: 2%;
+}
+
+/*---ALERTS------*/
+/*---INPUTS------*/
+.InputGeneral{
+    background-color: var(--principal) !important;
+    color: #ffffff !important;
+}
+.tituloSeccion{
+    margin-bottom: .5rem;
+}
+.tituloSeccion hr{
+    border-top: 1px solid var(--secundario);
+}
+.tituloSeccion span{
+    position: absolute;
+    top: .2rem;
+    left: 0;
+    right: 0;
+}

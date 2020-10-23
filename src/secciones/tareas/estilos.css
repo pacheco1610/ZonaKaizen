@@ -1,0 +1,269 @@
+:root {
+    --principal: #192233;
+    --secundario:#212c42;
+    --blueCrayola: #6781f7;
+    --textoSecundario:#707D96;
+}
+
+.inputTituloTarea{
+    background-color: var(--principal);
+    border: none;
+    border-bottom: 1px solid var(--secundario);
+    min-height: 50px;
+    font-size: 1.5rem;
+    color: #ffffff !important;
+}
+.inputTituloTarea::placeholder{
+    font-size: 1.2rem;
+}
+.inputTituloTarea:focus{
+    background-color: var(--principal);
+    border: 1px;
+}
+
+/*INPUTS*/
+.dropdownCol-Cover{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top:0;
+    z-index: 9 !important;
+}
+.toggle{
+    visibility: hidden;
+}
+.dropdownCol{
+    position: absolute;
+    background-color: var(--secundario);
+    width: 100%;
+    right: 0 !important; 
+    z-index: 10000000 !important;
+}
+.dropdownColLista:hover{
+    background-color: var(--principal);
+}
+.img-drop{
+    width: 2em;
+    min-height: 2rem;
+}
+.card-fecha{
+    color: #000;
+    font-size: .7rem;
+    font-weight: 700;
+    margin-top: .3rem;
+}
+.card-titulo{
+    color: #000;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.card-cuerpo{
+    color: #000000;
+}
+.card-cuerpo img{
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: .5rem;
+}
+.divNuevatarea{
+    width: 100%;
+    right:0;
+    bottom:0;
+    position: fixed;
+    z-index: 1;
+    height: 100%;
+    visibility: visible;
+    background-color: rgb(0, 0,0,.3);
+}
+.toggleNuevatarea{
+    visibility: hidden !important;
+}
+.NuevaTarea{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 8rem;
+    margin-bottom: 4rem;
+    width: 25rem;
+    max-height: 35rem;
+    overflow-y: auto ;
+    z-index: 1000 !important;
+}
+.NuevaTarea::-webkit-scrollbar {
+    background: var(--principal);
+}
+.NuevaTarea::-webkit-scrollbar-thumb{
+    background-color: var(--secundario);
+    border-radius: 1rem;
+    width: 1px;
+}
+.btn-tarea{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 2rem;
+    margin-right: 5rem;
+}
+.datadrop{
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-top: 8.5rem;
+    margin-right: 9rem;
+    background-color: var(--secundario);
+    color: #ffffff !important;
+    visibility: visible;
+    z-index: 1000;
+}
+.datadropToggle{
+    visibility: hidden !important;
+}
+.react-datepicker__header{
+    background-color: var(--secundario) !important;
+
+}
+.react-datepicker__day-name{
+    color: #ffffff !important;
+}
+
+.datepicker---date-input---1vOyn input{
+    background-color: var(--principal) !important;
+    color: #ffffff !important;
+}
+
+.react-datepicker__current-month{
+    color: #ffffff !important;
+}
+.react-datepicker__day{
+    color: #ffffff !important;
+}
+.react-datepicker__day--selected{
+    background-color: var(--blueCrayola) !important;
+}
+.datepicker---time-input---2ICRB input{
+    background-color: var(--principal) !important;
+    color: #ffffff !important;
+}
+.dropInputPicker{
+    margin-left: 64%;
+    width: 30%;
+}
+.coverPicker{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top:0;
+    z-index: 9 !important;
+}
+.dragTarea{
+    opacity: 50%;
+}
+.InputMensaje{
+    background-color: var(--principal) !important;
+    color: #ffffff !important;
+    width: 82% !important;
+}
+.chat{
+    min-height: 9rem;
+    max-height: 9rem;
+    overflow-y: auto;
+}
+.chat::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.chat::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.chat::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.chat::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.chat::-webkit-scrollbar-thumb {
+    background-color: var(--secundario);
+    border-radius: 20px;
+}
+
+.chat::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
+.burbuja{
+    width: auto;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+input[type=file] {
+    outline: 0;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    display: none;
+}
+.label {
+    max-width: 2rem;
+    display: inline-block;
+    transition: border 300ms ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+.progressBar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.progressToggled{
+    display: none;
+}
+
+.range input{
+    -webkit-appearance: none;
+    width:100%;
+    height: .5rem;
+    border-radius: 1rem;
+    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(235,180,13,1) 50%, rgba(0,255,16,1) 100%);;
+}
+.range input::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    border: .3rem solid white;
+}
+.sliderValue{
+    position: relative;
+    top: 0;
+    background-color: red;
+    width: 100%;
+}
+.sliderValue span{
+    width: 2.1rem;
+    height: 2.1rem;
+    position: absolute;
+    bottom: .03rem;
+    background-color: red;
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    padding-top: .30rem;
+    text-align: center;
+    opacity: 0;
+}
+.archivoAdjunto{
+    max-width: 6rem;
+    max-height: 7rem;
+    font-size: .7rem;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+.btnClass{
+    cursor: pointer;
+}

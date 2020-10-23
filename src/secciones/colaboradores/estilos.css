@@ -1,0 +1,21 @@
+thead{
+    border-bottom: 1px solid var(--blueCrayola);
+}
+table{
+    width: 100%;
+}
+td {
+    padding: .5rem;
+    text-align: center;   
+}
+th {
+    text-align: center;
+    padding: .5rem;
+}
+tbody tr:hover{
+    background-color: var(--secundario);
+}
+
+.trButton{
+    cursor: pointer;
+}

@@ -1,0 +1,43 @@
+:root {
+    --principal: #192233;
+    --secundario:#212c42;
+    --blueCrayola: #6781f7;
+    --textoSecundario:#707D96;
+    --warning:#FD8A24;
+    --sucefull:#30E155;
+}
+.remove{
+    visibility: hidden;
+    border: none !important;
+}
+.btn-responsabilidad{
+    visibility: visible !important;
+    transition: ease 0.5s;
+}
+.inputRquerid{
+    border: 1px solid rgb(252, 69, 69);
+}
+/*--------TABLA-------*/
+thead{
+    border-bottom: 1px solid var(--blueCrayola);
+}
+table{
+    width: 100%;
+}
+td {
+    padding: .5rem;
+    text-align: center;   
+}
+th {
+    text-align: center;
+    padding: .5rem;
+}
+tbody tr:hover{
+    background-color: var(--secundario);
+}
+.contenedorTabla{
+    padding: .3rem;
+    width: 100%;
+    border: 1px solid var(--blueCrayola);
+    border-radius: .5rem;
+}

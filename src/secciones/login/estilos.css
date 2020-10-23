@@ -1,0 +1,56 @@
+:root {
+    --principal: #192233;
+    --secundario:#212c42;
+    --blueCrayola: #6781f7;
+    --textoSecundario:#707D96;
+}
+.contenedor{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 100;
+    min-height: 100vh;
+    min-width: 100%;
+}
+
+.titulo-bienvenida{
+    margin-top:-5rem;
+    font-family: PT-ROOT-Bold;
+    font-size: 3rem;
+    text-align: center;
+
+}
+.card-login{
+    border: 1px solid var(--blueCrayola);
+    padding: 1rem;
+    border-radius: 1rem;
+    max-width: 35%;
+}
+.card-imagen{
+    padding: 1rem;
+    border-radius: 1rem;
+    max-width: 35%;
+}
+.card-imagen img{
+    width: 35rem;
+}
+hr.login{
+    background: var(--blueCrayola);
+}
+.btn-google{
+    border: 1px solid #F76767;
+    color: #F76767;
+}
+.btn-google:hover{
+    background-color: #F76767;
+    color: #ffffff;
+}
+.btn-facebook{
+    border: 1px solid var(--blueCrayola);
+    color: var(--blueCrayola);
+}
+.btn-facebook:hover{
+    background-color: var(--blueCrayola);
+    color: #ffffff;
+}
