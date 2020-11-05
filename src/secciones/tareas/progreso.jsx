@@ -23,7 +23,9 @@ function Progreso(props) {
         const responsable = props.tarea.responsables.find(item => item.uid === props.usuario.uid)
         const filter = props.tarea.responsables.filter(item => item.uid !== props.usuario.uid)
         filter.push({ ...responsable, estatusTarea: "avance", avance: rangeValue,evidencia:evidencia })
-        firebase.database().ref(`tareas/${props.tarea.uidTarea}/`).update({ ...props.tarea, responsables: filter})
+        firebase.database().ref(`tareas/${props.tarea.uidTarea}/`).update({ ...props.tarea, responsables: filter,minfo:""})
+        props.setModal(false)
+        document.getElementById("myForm").reset();
     }
     return (
         <div className="row">
@@ -39,8 +41,8 @@ function Progreso(props) {
                     <div className="row">
                         <div className="col-7">
                             <p className="h6 bg-text-secundario d-block"><strong>Asignada por:</strong></p>
-                            <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" alt="" className="img-fluid rounded-circle img-drop mr-2" />
-                            <p className="h6 bg-text-secundario d-inline"><strong>Emmanuel Aviles Pacheco</strong></p>
+                            <img src={(props.colaboradores.find(item=>item.uid===props.tarea.asignador)).photo} alt="" className="img-fluid rounded-circle img-drop mr-2" />
+                            <p className="h6 bg-text-secundario d-inline"><strong>{(props.colaboradores.find(item=>item.uid===props.tarea.asignador)).nombre}</strong></p>
                         </div>
                         <div className="col-5">
                             <p className="h6 bg-text-secundario d-block"><strong>Fecha Limite:</strong></p>
@@ -63,7 +65,7 @@ function Progreso(props) {
                     <div className="sliderValue" >
                         <span id="sliderValue">{rangeValue}</span>
                     </div>
-                    <form onSubmit={(e) => handleTarea(e)}>
+                    <form onSubmit={(e) => handleTarea(e)} id="myForm">
                         <input type="range" value={rangeValue} onInput={(e) => range(e)} onMouseUp={() => document.getElementById('sliderValue').style.opacity = 0} />
                         <textarea required onChange={(e)=>setEvidencia(e.target.value)} className="form-control InputGeneral mt-2" rows="1" placeholder="Agrega un cometario a tu avance" />
                         <button className="bg-correcto btn float-right mt-4" type="submit">Guardar Avance</button>
@@ -75,7 +77,8 @@ function Progreso(props) {
 }
 const PropsStore = state => {
     return {
-        usuario: state.usuario.usuario
+        usuario: state.usuario.usuario,
+        colaboradores: state.colaboradores.colaboradores
     }
 }
 export default connect(PropsStore)(Progreso)

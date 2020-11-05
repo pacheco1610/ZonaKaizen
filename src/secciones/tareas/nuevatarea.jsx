@@ -6,12 +6,15 @@ import moment from 'moment'
 import DatePicker, { DateInput, TimeInput } from '@trendmicro/react-datepicker'
 import firebase from '../../context/firebaseConfig'
 import { toggleAlert } from '../../layout/alerts'
-
+import ArchivosAdjuntos from './archivosAdjuntos'
+import Spinner from './spinnerNuevaTarea'
 function Nuevatarea(props) {
     const [estado, setEstado] = useState({ colaboradores: props.colaboradores, responsablesFirebase: [], responsables: [], clientes: [], cliente: { nombre: '', apellido: '' } })
     const [fecha, setFecha] = useState(moment().format('YYYY-MM-DD'))
     const [hora, setHora] = useState(moment().format('hh:mm:ss'))
-
+    const [archivos, setArchivos] = useState([])
+    const [nombreArchivos, setNombreArchivos] = useState([])
+    const [spinner, setSpinner]= useState(false)
     useEffect(() => {
         setEstado({ ...estado, colaboradores: props.colaboradores, clientes: props.clientes })
     }, [props])
@@ -46,7 +49,7 @@ function Nuevatarea(props) {
         document.getElementById('clientes').classList.toggle('toggle')
         document.getElementById('clientescover').classList.toggle('toggle')
     }
-    const handleTarea = () => {
+    const handleTarea = async () => {
         if (!estado.titulo) {
             document.getElementById('titulo').classList.add('inputRquerid')
         }
@@ -57,6 +60,7 @@ function Nuevatarea(props) {
             document.getElementById('descripcion').classList.add('inputRquerid')
         }
         else {
+            let comprobar = 0
             const params = {
                 titulo: estado.titulo,
                 responsables: estado.responsablesFirebase,
@@ -73,20 +77,31 @@ function Nuevatarea(props) {
                         data: props.usuario.nombre + ' creo la tarea'
                     }
                 ],
-                hora:hora,
-                autorizacion: false
+                hora: hora,
+                autorizacion: false,
+                archivos: nombreArchivos
             }
-            firebase.database().ref('/tareas').push(params)
-                .then(() => {
-                    setEstado({ colaboradores: props.colaboradores, responsablesFirebase: [], responsables: [], clientes: [], cliente: { nombre: '', apellido: '', descripcion: '' } })
-                    toggleAlert('sucefull', 'Agregado Correctamente')
+            const referencia = (firebase.database().ref('/tareas').push(params)).key
+
+            await archivos.map(archivo=>{
+                firebase.storage().ref(`${referencia}/${archivo.name}`).put(archivo)
+                .on('state_changed', (snapshot) => {
+                    setSpinner(true)
+                }, (error) => {
+                    console.error(error.message)
+                }, () => {
+                    setSpinner(false)
                 })
+            })
+            setEstado({ colaboradores: props.colaboradores,archivos:[], titulo: "", descripcion: "", clientes: props.clientes, responsables: [], cliente: { nombre: '', apellido: '', descripcion: '' } })
+            toggleAlert('sucefull', 'Agregado Correctamente')
         }
     }
     return (
         <>
             <button onClick={() => toggleTarea()} className="bg-primary btn rounded-circle text-white btn-tarea"><i className="fas fa-plus"></i></button>
             <div id="NuevaTarea" className="NuevaTarea bg-principal rounded p-3 toggleNuevatarea">
+            <Spinner spinner={spinner}/>
                 <div className="form-group ">
                     <div className="dropInputPicker" onClick={() => dataDrop()}>
                         <DateInput
@@ -105,7 +120,7 @@ function Nuevatarea(props) {
                         />
                         <div className="d-flex p-2">
                             <p className="h6 bg-text-secundario mr-3"><strong>Hora de entrega:</strong></p>
-                        <TimeInput
+                            <TimeInput
                                 value={hora}
                                 onChange={value => { setHora(value) }}
                             />
@@ -118,7 +133,7 @@ function Nuevatarea(props) {
                 </div>
                 <div className="form-group">
                     <label className="col-form-label">Responsables</label>
-                    <InputFilter colaboradores={estado.colaboradores} AgregarResponsable={AgregarResponsable} />
+                    <InputFilter identificador="NuevaTareaInput" colaboradores={estado.colaboradores} AgregarResponsable={AgregarResponsable} />
                 </div>
                 <div className="form-group row ">
                     {estado.responsables.map(responsable =>
@@ -135,6 +150,10 @@ function Nuevatarea(props) {
                 <div className="form-group">
                     <label className="col-form-label">Descripción</label>
                     <textarea value={estado.descripcion} onFocus={() => document.getElementById('descripcion').classList.remove('inputRquerid')} id="descripcion" onChange={(e) => setEstado({ ...estado, descripcion: e.target.value })} className="form-control InputGeneral" />
+                </div>
+                <div className="form-group">
+                    <label className="col-form-label">Adjuntar Archivo</label>
+                    <ArchivosAdjuntos setArchivos={setArchivos} archivos={archivos} nombreArchivos={nombreArchivos} setNombreArchivos={setNombreArchivos} />
                 </div>
                 <div className="form-group row justify-content-end">
                     <button className="bg-correcto btn" onClick={() => handleTarea()}>Comenzar tarea</button>

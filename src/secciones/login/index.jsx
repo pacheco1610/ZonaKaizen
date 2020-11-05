@@ -1,11 +1,11 @@
 import React from 'react'
 import './estilos.css'
 import { Link } from 'react-router-dom'
-
+import firebase from '../../context/firebaseConfig'
 export default function Index(props) {
-    const google = new props.firebase.auth.GoogleAuthProvider();
+    const google = new firebase.auth.GoogleAuthProvider();
     const socialLogin = async (prev) => {
-        await props.firebase
+        await firebase
             .auth()
             .signInWithPopup(prev)
             .catch(error => {

@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 
 function InputColaboradores(props) {
     const toggle = () => {
-        document.querySelector('.dropdownCol').classList.toggle('toggle')
-        document.querySelector('.dropdownCol-Cover').classList.toggle('toggle')
+        document.querySelector(`.${props.identificador}`).classList.toggle('toggle')
+        document.querySelector(`.${props.identificador}Cover`).classList.toggle('toggle')
         document.getElementById('colaboradoresInput').classList.remove('inputRquerid')
     }
     const puesto = (key)=>{
@@ -13,19 +13,24 @@ function InputColaboradores(props) {
             return puesto.Puesto
         }
     }
+    const addresponsable = (colaborador) =>{
+        props.AgregarResponsable(colaborador)
+        document.querySelector(`.${props.identificador}`).classList.toggle('toggle')
+        document.querySelector(`.${props.identificador}Cover`).classList.toggle('toggle')
+    }
     return (
         <React.Fragment>
             <input type="text" className="form-control InputGeneral" id="colaboradoresInput" onFocus={() => toggle()} />
-            <div className="dropdownCol shadow mt-2 rounded toggle">
+            <div className={`dropdownCol ${props.identificador} shadow mt-2 rounded toggle`}>
                 {props.colaboradores.map(colaborador =>
-                    <div className="col-12 btn text-left dropdownColLista" key={colaborador.uid} onClick={()=>props.AgregarResponsable(colaborador)}>
+                    <div className="col-12 btn text-left dropdownColLista" key={colaborador.uid} onClick={()=>addresponsable(colaborador)}>
                         <img src={colaborador.photo}
                             alt=""
                             className="img-fluid rounded-circle img-drop mr-2"
                         /> <span className="text-white">{colaborador.nombre}</span> <span className="span-small">{puesto(colaborador.puesto)}</span>
                     </div>)}
             </div>
-            <div className="dropdownCol-Cover toggle" onClick={() => toggle()}></div>
+            <div className={`dropdownCol-Cover ${props.identificador}Cover toggle`} onClick={() => toggle()}></div>
 
         </React.Fragment>
     )

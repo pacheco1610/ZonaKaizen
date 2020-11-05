@@ -66,6 +66,7 @@
     height: 2rem;
     margin-bottom: .5rem;
 }
+
 .divNuevatarea{
     width: 100%;
     right:0;
@@ -114,7 +115,16 @@
     background-color: var(--secundario);
     color: #ffffff !important;
     visibility: visible;
-    z-index: 1000;
+    z-index: 10000000 !important;
+}
+.datadropEdit{
+    position: fixed;
+    background-color: var(--secundario);
+    color: #ffffff !important;
+    visibility: visible;
+    z-index: 10000000 !important;
+    top: 5;
+    left: 5;
 }
 .datadropToggle{
     visibility: hidden !important;
@@ -149,6 +159,9 @@
     margin-left: 64%;
     width: 30%;
 }
+.dropInputPickerEdit{
+    width: 30%;
+}
 .coverPicker{
     position: fixed;
     width: 100%;
@@ -158,17 +171,69 @@
     z-index: 9 !important;
 }
 .dragTarea{
-    opacity: 50%;
+    opacity:0.5
 }
 .InputMensaje{
     background-color: var(--principal) !important;
     color: #ffffff !important;
     width: 82% !important;
 }
-.chat{
-    min-height: 9rem;
-    max-height: 9rem;
+.flexbox-container {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+}
+.inputMensaje{
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flexbox-container > div:first-child {
+    width: 40%;
+}
+.flexbox-container >div:last-child{
+    width: 60%;
+}
+.contenedorChat{
+    height:80vh;
+    background-image: url('/images/fondochat.png');
+}
+.detallestarea{
     overflow-y: auto;
+    max-height: 80vh;
+    margin-right: 1rem !important;
+}
+.detallestarea::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.detallestarea::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.detallestarea::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.detallestarea::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.detallestarea::-webkit-scrollbar-thumb {
+    background-color: var(--principal);
+    border-radius: 20px;
+}
+
+.detallestarea::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
+
+.chat{
+    overflow-y: auto;
+    height: 70vh;
 }
 .chat::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -200,18 +265,28 @@
     word-wrap: break-word;
 }
 input[type=file] {
-    outline: 0;
     opacity: 0;
     pointer-events: none;
     user-select: none;
     display: none;
 }
-.label {
-    max-width: 2rem;
-    display: inline-block;
-    transition: border 300ms ease;
+.InputFile{
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    display: none;
+    max-width: 1rem !important;
+}
+.labelinputFile{
     cursor: pointer;
-    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
+.label {
+    cursor: pointer;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .progressBar{
@@ -266,4 +341,75 @@ input[type=file] {
 }
 .btnClass{
     cursor: pointer;
+}
+.DragZone{
+    border:2px dashed #ffffff ;
+}
+.DragZoneNuevaTarea{
+    border:2px dashed #ffffff ;
+    cursor: pointer;
+}
+.DragZoneNuevaTarea:hover{
+    opacity:0.5;
+    transition: ease-in-out .5s;
+}
+.AgregarAdjunto{
+    background-color: var(--principal);
+    border:2px dashed #ffffff ;
+    cursor: pointer;
+    max-height: 7rem;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+.AgregarAdjunto:hover{
+    opacity:0.5;
+    -webkit-transition: ease-in-out .5s;
+    -o-transition: ease-in-out .5s;
+    transition: ease-in-out .5s;
+}
+.spinerNuevaTarea{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1000 !important;
+    min-height: 100vh;
+    min-width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(25, 34, 51,70%);;
+}
+.contenedorTarea{
+    text-align: center;
+    max-width: 40%;
+}
+
+.imgFiltro{
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    margin: .2rem;
+    opacity:0.5;
+    -webkit-transition: ease-in-out .3s;
+    -o-transition: ease-in-out .3s;
+    transition: ease-in-out .3s;
+}
+.imgFiltro:hover{
+    opacity: 1;
+    -webkit-transition: ease-in-out .3s;
+    -o-transition: ease-in-out .3s;
+    transition: ease-in-out .3s;
+    border: .15rem solid var(--sucefull);
+}
+.imgFiltroCheck{
+    opacity: 1;
+    border: .15rem solid var(--sucefull);
+}
+.fechaYhora{
+    width: 100%;
+    display: block;
+}
+.FechaLimite{
+    font-weight: bolder;
+    color:var(--blueCrayola);
 }

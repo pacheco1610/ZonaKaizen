@@ -22,10 +22,9 @@
 .modalContainer{
     background-color: #212c42;
     width: auto;
-    max-width: 35rem !important;
+    max-width: 95% !important;
     padding: 1rem;
     border-radius: .3rem;
     z-index: 100000;
-    margin-top: 10rem !important;
     margin-bottom: 1rem;
 }

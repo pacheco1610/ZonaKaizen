@@ -12,6 +12,13 @@ export const updatetarea_action = (tarea) =>{
         payload:tarea
     }
 }
+export const RESPONSABLESTAREAS = 'FILTROTAREAS'
+export const responsable_action = (responsable) =>{
+    return{
+        type:RESPONSABLESTAREAS,
+        payload:responsable
+    }
+}
 /*export const EDITPUESTOS = 'EDITPUESTOS'
 export const editpuestos_action = (puesto) =>{
     return{

@@ -8,9 +8,6 @@ function bienvenida(props) {
                 <span className="bg-text-secundario">Veo que eres nuevo, ¿como deseas continuar?</span>
             </div>
             <div className="col-12 mt-3">
-                <button className="btn btn-block btn-primary" onClick={()=> props.UpdateView(2)}> Continuar como Empleado</button>
-            </div>
-            <div className="col-12 mt-3">
                 <button className="btn btn-block btn-primary"  onClick={()=> props.UpdateView(3)}>Continuar como Empresa</button>
             </div>
         </div>

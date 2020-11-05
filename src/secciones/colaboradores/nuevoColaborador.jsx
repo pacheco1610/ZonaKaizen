@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {toggleAlert} from '../../layout/alerts'
 import firebase from '../../context/firebaseConfig'
 import randomColor from 'randomcolor'
+import Invitacion from '../nuevosUsuarios/invitacion'
 
 function NuevoColaborador(props) {
     const [estado, setEstado] = useState({permisos:[
@@ -18,6 +19,7 @@ function NuevoColaborador(props) {
 
     useEffect(() => {
         setEstado({...estado,menu:props.permisos})
+        console.log(window.location.origin)
     }, [props.permisos])
 
     const SelectPuesto = (itemPuesto) =>{
@@ -74,9 +76,14 @@ function NuevoColaborador(props) {
                     }
                     ],menu:props.permisos,puesto:{Puesto:'Selecciona un puesto'},nombre:'',referencia:referenciaRandom})
                 toggleAlert('sucefull','Agregado Correctamente')
+                document.getElementById('copinvitation').classList.toggle('copyinvitation')
             })
            
         }
+    }
+    const Invitacion = () =>{
+        const element = document.getElementById('invitacion')
+        document.execCommand('copy', false, element.select());
     }
     return (
         <div>
@@ -121,8 +128,9 @@ function NuevoColaborador(props) {
 
             </div>
             <div className="col-12 mb-4">
-                <label>Referencia</label>
-                <input type="text" value={estado.referencia}className="form-control requerid InputGeneral" placeholder="Referencia"/>
+                <label>Invitación</label>
+                <input type="text" value={`${window.location.origin}/invitation/${estado.referencia}`} id="invitacion" className="form-control requerid inputInvitacion" placeholder="Referencia"/>
+                <div className="btn btn-block text-white text-center copyinvitation" id="copinvitation" onClick={()=>Invitacion()}>copiar Invitación</div>
             </div>
             <div className="col-12">
                 <button className="btn btn-primary btn-block" onClick={()=>AltaColaborador()}>Agregar Colaborador</button>

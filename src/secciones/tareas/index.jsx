@@ -1,11 +1,9 @@
 import React,{useState} from 'react'
 import './estilos.css'
-import Sidebar from '../../layout/sidebarRight'
-import ButtonSidebar from '../../layout/buttonSidebar'
-
 import Calendario from './calendario'
 import NuevaTarea from './nuevatarea'
 import Lista from './lista'
+import Filtro from './filtro'
 
 export default function Index() {
     const [view,setView]=useState(1)
@@ -37,6 +35,7 @@ export default function Index() {
                             {/*--------------------NAVBAR HEADER--------------------------- */}
                             <nav className="navbar navbar-expand-lg navbar-light bg-principal navbarTareas shadow">
                                 <div className="container">
+                                    <Filtro/>
                                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
                                         <button id="list" className="btn bg-text-blue" onClick={()=>setView(1)}><i className="fas fa-list-ol"></i></button>

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import { connect } from 'react-redux'
 import firebase from '../../context/firebaseConfig'
@@ -6,22 +6,22 @@ function Realizada(props) {
     const [MensajeInput, setMensajeInput] = useState()
     const [porcentaje, setporcentaje] = useState(0)
     const [nombreArchivo, setnombreArchivo] = useState('')
-    const [archivos, SetArchivos]=useState([])
+    const [archivos, SetArchivos] = useState([])
     useEffect(() => {
-        firebase.database().ref(`tareas/${props.tarea.uidTarea}/responsables/`).on('child_added',snap=>{
-            if (snap.val().uid===props.usuario.uid) {
+        firebase.database().ref(`tareas/${props.tarea.uidTarea}/responsables/`).on('child_added', snap => {
+            if (snap.val().uid === props.usuario.uid) {
                 if (snap.val().archivos) {
                     SetArchivos(snap.val().archivos)
                 }
             }
-       })
-       firebase.database().ref(`tareas/${props.tarea.uidTarea}/responsables/`).on('child_changed',snap=>{
-        if (snap.val().uid===props.usuario.uid) {
-            if (snap.val().archivos) {
-                SetArchivos(snap.val().archivos)
+        })
+        firebase.database().ref(`tareas/${props.tarea.uidTarea}/responsables/`).on('child_changed', snap => {
+            if (snap.val().uid === props.usuario.uid) {
+                if (snap.val().archivos) {
+                    SetArchivos(snap.val().archivos)
+                }
             }
-        }
-   })
+        })
     }, [])
 
     const handleTarea = (e) => {
@@ -29,7 +29,9 @@ function Realizada(props) {
         const responsable = props.tarea.responsables.find(item => item.uid === props.usuario.uid)
         const filter = props.tarea.responsables.filter(item => item.uid !== props.usuario.uid)
         filter.push({ ...responsable, estatusTarea: "realizada" })
-        firebase.database().ref(`tareas/${props.tarea.uidTarea}/`).update({ ...props.tarea, responsables: filter})
+        firebase.database().ref(`tareas/${props.tarea.uidTarea}/`).update({ ...props.tarea, responsables: filter,minfo:"" })
+        props.setModal(false)
+        document.getElementById("mensaje").reset();
     }
     const handleOnChange = (event) => {
         document.getElementById('progressBar').classList.toggle('progressToggled')
@@ -46,14 +48,14 @@ function Realizada(props) {
             setTimeout(function () {
                 document.getElementById('progressBar').classList.toggle('progressToggled')
                 firebase.database().ref(`tareas/${props.tarea.uidTarea}/responsables/${props.tarea.responsables.findIndex(item => item.uid === props.usuario.uid)}/`)
-                .update({archivos:archivos.concat(file.name)})
+                    .update({ archivos: archivos.concat(file.name) })
             }, 1000);
         })
     }
-    const handleRemoveArchivo = (archivo) =>{
+    const handleRemoveArchivo = (archivo) => {
         firebase.storage().ref(`${props.tarea.uidTarea}/${props.usuario.uid}/`).child(archivo).delete()
         firebase.database().ref(`tareas/${props.tarea.uidTarea}/responsables/${props.tarea.responsables.findIndex(item => item.uid === props.usuario.uid)}/`)
-                .update({archivos:archivos.filter(item=>item !==archivo)})
+            .update({ archivos: archivos.filter(item => item !== archivo) })
     }
     return (
         <div className="row">
@@ -69,8 +71,8 @@ function Realizada(props) {
                     <div className="row">
                         <div className="col-7">
                             <p className="h6 bg-text-secundario d-block"><strong>Asignada por:</strong></p>
-                            <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" alt="" className="img-fluid rounded-circle img-drop mr-2" />
-                            <p className="h6 bg-text-secundario d-inline"><strong>Emmanuel Aviles Pacheco</strong></p>
+                            <img src={(props.colaboradores.find(item => item.uid === props.tarea.asignador)).photo} alt="" className="img-fluid rounded-circle img-drop mr-2" />
+                            <p className="h6 bg-text-secundario d-inline"><strong>{(props.colaboradores.find(item => item.uid === props.tarea.asignador)).nombre}</strong></p>
                         </div>
                         <div className="col-5">
                             <p className="h6 bg-text-secundario d-block"><strong>Fecha Limite:</strong></p>
@@ -91,17 +93,16 @@ function Realizada(props) {
             <div className="col-12 mt-2">
                 <div className="bg-principal p-2 rounded">
                     <div className="row">
-                    {archivos.map(archivo=>
-                        <div className="bg-secundario p-2 rounded col-3 mr-2">
-                        <div className="text-right text-white btnClass" onClick={()=>handleRemoveArchivo(archivo)}>X</div>
-                        <div className="text-center">
-                            <i className="fas fa-paperclip mb-2"></i>
-                            <snap className="d-block">{archivo}</snap>
-                        </div>
-                    </div>
+                        {archivos.map(archivo =>
+                            <div className="bg-secundario p-2 rounded col-3 mr-2">
+                                <div className="text-right text-white btnClass" onClick={() => handleRemoveArchivo(archivo)}>X</div>
+                                <div className="text-center">
+                                    <i className="fas fa-paperclip mb-2"></i>
+                                    <snap className="d-block">{archivo}</snap>
+                                </div>
+                            </div>
                         )}
                     </div>
-                   
                 </div>
             </div>
             <div className="col-12 mt-2">
@@ -113,9 +114,9 @@ function Realizada(props) {
                             <progress value={porcentaje} max="100" className="ml-2" />
                         </div>
                         <div className="form-group d-inline">
-                            <label className="label mr-3 ml-4">
+                            <label className="labelinputFile mr-3 ml-4">
                                 <i className="fas fa-paperclip"></i>
-                                <input type="file" onChange={(e) => handleOnChange(e)} />
+                                <input type="file" className="InputFile" onChange={(e) => handleOnChange(e)} />
                             </label>
                         </div>
                         <form id="mensaje" onSubmit={(e) => handleTarea(e)} className="d-inline">
@@ -132,6 +133,7 @@ function Realizada(props) {
 const PropsStore = state => {
     return {
         usuario: state.usuario.usuario,
+        colaboradores: state.colaboradores.colaboradores
     }
 }
 export default connect(PropsStore)(Realizada)

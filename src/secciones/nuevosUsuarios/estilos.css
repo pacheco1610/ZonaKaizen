@@ -1,0 +1,29 @@
+.contenedorInvitacion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.descripcionInvitacion{
+    max-width: 50
+    8rem;
+}
+.divInvitacion{
+    text-align: center;
+    animation-name: texto;
+    animation-duration: 4s;
+}
+@keyframes texto{
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+.inputInvitacion{
+    border: 0;
+}
+.copyinvitation{
+    display: none;
+}

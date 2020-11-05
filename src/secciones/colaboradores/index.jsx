@@ -33,7 +33,7 @@ export default function Index() {
                 <div className="container-fluid">
                     <div className="cardGeneral">
                         {/*--------------------NAVBAR HEADER--------------------------- */}
-                        <nav className="navbar navbar-expand-lg navbar-light bg-principal pb-3 pt-3">
+                        <nav className="navbar navbar-expand-lg navbar-light bg-principal pt-3">
                             <div className="container">
                                 <button className="btn bg-primary text-white" onClick={()=>toggleRight(1)}>Nuevo Colaborador</button>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">

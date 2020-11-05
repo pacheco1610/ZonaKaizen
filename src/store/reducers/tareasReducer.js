@@ -1,8 +1,9 @@
 
-import {TAREAS,UPDATETAREA} from '../actions/tareasActions'
+import {TAREAS,UPDATETAREA,RESPONSABLESTAREAS} from '../actions/tareasActions'
 
 const default_tareas={
-    tareas:[]
+    tareas:[],
+    responsables:[]
 }
 
 const tareas = (state=default_tareas,action)=>{
@@ -15,6 +16,11 @@ const tareas = (state=default_tareas,action)=>{
         case UPDATETAREA:{
             return({
                 ...state,tareas:action.payload
+            })
+        }
+        case RESPONSABLESTAREAS:{
+            return({
+                ...state,responsables:state.responsables.concat(action.payload)
             })
         }
         /*case EDITPUESTOS:{

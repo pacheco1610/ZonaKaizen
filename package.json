@@ -11,6 +11,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@trendmicro/react-datepicker": "^1.0.0-alpha.7",
+    "axios": "^0.21.0",
     "bootstrap": "^4.5.2",
     "firebase": "^7.21.0",
     "fullcalendar": "^5.3.2",

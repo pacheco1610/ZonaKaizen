@@ -11,6 +11,7 @@ function EditColaborador(props) {
     useEffect(() => {
         setEstado({...props.colaborador,puesto:(props.puestos.filter(item=>item.key===props.colaborador.puesto)[0]),permisos:[]})
         filterPermisos()
+        console.log(estado)
     }, [props.colaborador])
     const filterPermisos = () =>{
         let array = props.permisos
@@ -58,6 +59,10 @@ function EditColaborador(props) {
            
         }
     }
+    const Invitacion = () =>{
+        const element = document.getElementById('invitacion')
+        document.execCommand('copy', false, element.select());
+    }
     return (
         <div>
         {/*------------------NAVBAR----------- */}
@@ -103,7 +108,8 @@ function EditColaborador(props) {
             </div>
             <div className="col-12 mb-4">
                 <label>Referencia</label>
-                <input type="text" value={estado.referencia}className="form-control requerid InputGeneral" placeholder="Referencia"/>
+                <input type="text" value={`${window.location.origin}/invitation/${estado.uid}`} id="invitacion" className="form-control requerid inputInvitacion" placeholder="Referencia"/>
+                <div className="btn btn-block text-white text-center" id="copinvitation" onClick={()=>Invitacion()}>copiar Invitación</div>
             </div>
             <div className="col-12">
                 <button className="btn btn-primary btn-block" onClick={()=>AltaColaborador()}>Guardar Cambios</button>
