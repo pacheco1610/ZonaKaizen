@@ -80,17 +80,19 @@ function DetallesTarea(props) {
         setData({ ...data, responsables: data.responsables.concat({ estatusTarea: false, fechaAsing: moment().format('YYYY-MM-DD'), uid: colaborador.uid }) })
     }
     const DescarArchivo = (item) => {
-        firebase.storage().ref(`/-MKpOLkLBZVe6GBu-Yl7/254417-P48REP-313_0003_Capa-4.png`).getDownloadURL().then(function (url) {
+        firebase.storage().ref(`/${props.tarea.uidTarea}/${item.nombre}`).getDownloadURL().then(function (url) {
             var xhr = new XMLHttpRequest();
             xhr.responseType = 'blob';
-            xhr.onload = function (event) {
-                var blob = xhr.response;
+            xhr.onload = function(event) {
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(xhr.response);
+                a.download = item.nombre;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();                           
             };
             xhr.open('GET', url);
             xhr.send();
-
-        }).catch(function (error) {
-            // Handle any errors
         });
     }
     return (

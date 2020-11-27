@@ -6,10 +6,10 @@ import {toggleAlert} from '../../layout/alerts'
 import firebase from '../../context/firebaseConfig'
 
 function EditColaborador(props) {
-    const [estado, setEstado] = useState({...props.colaborador,puesto:(props.puestos.filter(item=>item.key===props.colaborador.puesto)[0]),permisos:[]})
+    const [estado, setEstado] = useState({...props.colaborador,puesto:props.puestos.find(item=>item.key===props.colaborador.puesto),permisos:[]})
     
     useEffect(() => {
-        setEstado({...props.colaborador,puesto:(props.puestos.filter(item=>item.key===props.colaborador.puesto)[0]),permisos:[]})
+        setEstado({...props.colaborador,puesto:props.puestos.find(item=>item.key===props.colaborador.puesto),permisos:[]})
         filterPermisos()
         console.log(estado)
     }, [props.colaborador])

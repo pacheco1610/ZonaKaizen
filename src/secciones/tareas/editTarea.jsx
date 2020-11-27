@@ -16,11 +16,11 @@ function DetallesTarea(props) {
     const [dataTooltip, setDataTooltip] = useState('')
     const [data, setData] = useState(props.tarea)
     useEffect(() => {
-        firebase.database().ref(`tareas/${props.tarea.uidTarea}`).on('child_changed',snap=>{
-            setData({...data,[snap.key]:snap.val()})
+        firebase.database().ref(`tareas/${props.tarea.uidTarea}`).on('child_changed', snap => {
+            setData({ ...data, [snap.key]: snap.val() })
         })
-        setTimeout(ScrollChat,100);
-    },[])
+        setTimeout(ScrollChat, 100);
+    }, [])
     const enviarMensaje = (e) => {
         e.preventDefault()
         const update = data.historial
@@ -32,9 +32,9 @@ function DetallesTarea(props) {
         })
         firebase.database().ref(`tareas/${data.uidTarea}`).update({ historial: update })
         document.getElementById("mensaje").reset();
-        setTimeout(ScrollChat,100);
+        setTimeout(ScrollChat, 100);
     }
-    function ScrollChat(){
+    function ScrollChat() {
         document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
     }
     const handleOnChange = (event) => {
@@ -80,34 +80,36 @@ function DetallesTarea(props) {
 
     }
     const AgregarResponsable = (colaborador) => {
-        setData({ ...data, responsables: data.responsables.concat({ estatusTarea: false, fechaAsing: moment().format('YYYY-MM-DD'), uid: colaborador.uid })})
-        firebase.database().ref(`tareas/${props.tarea.uidTarea}`).update({responsables:data.responsables.concat({ estatusTarea: false, fechaAsing: moment().format('YYYY-MM-DD'), uid: colaborador.uid })})
+        setData({ ...data, responsables: data.responsables.concat({ estatusTarea: false, fechaAsing: moment().format('YYYY-MM-DD'), uid: colaborador.uid }) })
+        firebase.database().ref(`tareas/${props.tarea.uidTarea}`).update({ responsables: data.responsables.concat({ estatusTarea: false, fechaAsing: moment().format('YYYY-MM-DD'), uid: colaborador.uid }) })
     }
     const DescarArchivo = (item) => {
-        firebase.storage().ref(`/-MKpOLkLBZVe6GBu-Yl7/254417-P48REP-313_0003_Capa-4.png`).getDownloadURL().then(function (url) {
+        firebase.storage().ref(`/${props.tarea.uidTarea}/${item.nombre}`).getDownloadURL().then(function (url) {
             var xhr = new XMLHttpRequest();
             xhr.responseType = 'blob';
-            xhr.onload = function (event) {
-                var blob = xhr.response;
+            xhr.onload = function(event) {
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(xhr.response);
+                a.download = item.nombre;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();                           
             };
             xhr.open('GET', url);
             xhr.send();
-
-        }).catch(function (error) {
-            // Handle any errors
         });
     }
-    const autorizarTarea = () =>{
-        firebase.database().ref(`tareas/${props.tarea.uidTarea}`).update({autorizacion:true})
+    const autorizarTarea = () => {
+        firebase.database().ref(`tareas/${props.tarea.uidTarea}`).update({ autorizacion: true })
         props.setModal(false)
     }
-    const update =(campo,data)=>{
-        firebase.database().ref(`tareas/${props.tarea.uidTarea}`).update({[campo]:data})
+    const update = (campo, data) => {
+        firebase.database().ref(`tareas/${props.tarea.uidTarea}`).update({ [campo]: data })
     }
-    const removeResponsable = (colaborador) =>{
-        const filter =  data.responsables.filter(item => item.uid !== colaborador.uid)
-        setData({ ...data, responsables: filter})
-        firebase.database().ref(`tareas/${props.tarea.uidTarea}`).update({responsables:filter})
+    const removeResponsable = (colaborador) => {
+        const filter = data.responsables.filter(item => item.uid !== colaborador.uid)
+        setData({ ...data, responsables: filter })
+        firebase.database().ref(`tareas/${props.tarea.uidTarea}`).update({ responsables: filter })
     }
     return (
         <div className="flexbox-container">
@@ -164,7 +166,7 @@ function DetallesTarea(props) {
                             <p className="h6 d-inline"><strong>Descripción</strong></p>
                         </div>
                         <div className="bg-principal p-2 rounded">
-                            <textarea value={data.descripcion} onBlur={()=>update('descripcion',data.descripcion)} onChange={(e) => setData({ ...data, descripcion: e.target.value })} className="form-control InputGeneral mt-2" rows="1" placeholder="Agrega un cometario a tu avance" />
+                            <textarea value={data.descripcion} onBlur={() => update('descripcion', data.descripcion)} onChange={(e) => setData({ ...data, descripcion: e.target.value })} className="form-control InputGeneral mt-2" rows="1" placeholder="Agrega un cometario a tu avance" />
                         </div>
                     </div>
                     <div className="col-12 mt-2">
@@ -176,7 +178,7 @@ function DetallesTarea(props) {
                             <InputFilter AgregarResponsable={AgregarResponsable} colaboradores={props.colaboradores.filter(item => filterColaboradores(item))} identificador="EditTareaInput" />
                         </div>
                         {data.responsables.map(responsable => {
-                            return (<Responsables responsable={responsable} removeResponsable={removeResponsable} colaborador={props.colaboradores.find(item => item.uid === responsable.uid)} edit={true}/>)
+                            return (<Responsables responsable={responsable} removeResponsable={removeResponsable} colaborador={props.colaboradores.find(item => item.uid === responsable.uid)} edit={true} />)
                         })}
                     </div>
                     {data.clienteRelacionado &&
@@ -215,7 +217,7 @@ function DetallesTarea(props) {
                         </div>
                     </div>
                     <div className="col-12 mt-2">
-                        <button className="btn btn-block bg-success text-white" onClick={()=>autorizarTarea()}>Autorizar Tarea</button>
+                        <button className="btn btn-block bg-success text-white" onClick={() => autorizarTarea()}>Autorizar Tarea</button>
                     </div>
                 </div>
             </div>

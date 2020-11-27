@@ -7,8 +7,6 @@
 
 .inputTituloTarea{
     background-color: var(--principal);
-    border: none;
-    border-bottom: 1px solid var(--secundario);
     min-height: 50px;
     font-size: 1.5rem;
     color: #ffffff !important;
@@ -49,7 +47,7 @@
 }
 .card-fecha{
     color: #000;
-    font-size: .7rem;
+    font-size: .8rem;
     font-weight: 700;
     margin-top: .3rem;
 }
@@ -91,6 +89,9 @@
     overflow-y: auto ;
     z-index: 1000 !important;
 }
+.NuevaTarea::-webkit-scrollbar:vertical {
+    width:7px;
+}
 .NuevaTarea::-webkit-scrollbar {
     background: var(--principal);
 }
@@ -110,7 +111,7 @@
     position: fixed;
     top: 0;
     right: 0;
-    margin-top: 8.5rem;
+    margin-top: 6rem;
     margin-right: 9rem;
     background-color: var(--secundario);
     color: #ffffff !important;
@@ -123,8 +124,8 @@
     color: #ffffff !important;
     visibility: visible;
     z-index: 10000000 !important;
-    top: 5;
-    left: 5;
+    top: 4;
+    left: 4;
 }
 .datadropToggle{
     visibility: hidden !important;
@@ -344,7 +345,9 @@ input[type=file] {
 }
 .DragZone{
     border:2px dashed #ffffff ;
+
 }
+
 .DragZoneNuevaTarea{
     border:2px dashed #ffffff ;
     cursor: pointer;
@@ -412,4 +415,54 @@ input[type=file] {
 .FechaLimite{
     font-weight: bolder;
     color:var(--blueCrayola);
+}
+#descripcionCuerpo{
+    max-height: 50px;
+}
+.card-body{
+    max-height: 30rem;
+    overflow-y: auto;
+}
+.card-body::-webkit-scrollbar {
+    width: 5px;
+}
+.card-body::-webkit-scrollbar:vertical {
+    width:5px;
+}
+.card-body::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: visible;
+} 
+.card-body::-webkit-scrollbar-thumb {
+    background-color: var(--secundario);
+    border-radius: 10px;
+}
+.cardContenedor{
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+}
+.cardbodyCover{
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--secundario);
+    padding: 1rem;
+}
+.avanceCover{
+    position: relative;
+    z-index: 10;
+    background-color: var(--principal);
+}
+.DragCover{
+    border:2px dashed #ffffff ;
+    height: 100%;
+    width: 100%;
+    border-radius: 1rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }

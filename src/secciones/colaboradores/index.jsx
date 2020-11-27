@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
 import Sidebar from '../../layout/sidebarRight'
-import ButtonSidebar from '../../layout/buttonSidebar'
 import NuevoColaborador from './nuevoColaborador'
 import Colaboradores from './colaboradores'
 import EditColaborador from './editColaborador'
+import firebase from '../../context/firebaseConfig'
 import './estilos.css'
 
 export default function Index() {
@@ -24,7 +24,7 @@ export default function Index() {
             document.getElementById('wrapper-Container').classList.toggle('toggled')
         }
     }
-       
+
     return (
         <div className="section">
         <h1>Colaboradores</h1>

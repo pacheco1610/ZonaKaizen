@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {colaborador_action} from '../../store/actions/colaboradoresActions'
 function Colaboradores(props) {
     const HandleColaborador = (colaborador)=>{
+
         props.colaborador_action(colaborador)
         props.toggleRight(2)
     }

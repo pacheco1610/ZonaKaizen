@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import firebase from '../../context/firebaseConfig'
 export default function Index(props) {
     const google = new firebase.auth.GoogleAuthProvider();
+    const facebook = new firebase.auth.FacebookAuthProvider()
     const socialLogin = async (prev) => {
         await firebase
             .auth()
@@ -40,7 +41,7 @@ export default function Index(props) {
                                 <button className="btn btn-block btn-google" onClick={() => socialLogin(google)}>Iniciar Sesion Google</button>
                             </div>
                             <div className="col-12 mt-3">
-                                <button className="btn btn-block btn-facebook" onClick={() => socialLogin(google)}>Iniciar Sesion Facebook</button>
+                                <button className="btn btn-block btn-facebook" onClick={() => socialLogin(facebook)}>Iniciar Sesion Facebook</button>
                             </div>
                         </div>
                     </div>

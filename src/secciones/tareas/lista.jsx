@@ -13,20 +13,20 @@ function List(props) {
 
     const onDragEnter = (e) => {
         if (e.target.id !== '') {
-            document.querySelector(`#${e.target.id} div`).style.opacity = "50%"
+
         }
 
     }
     const onDrop = (e, render) => {
         if (e.target.id !== '') {
-            document.querySelector(`#${e.target.id} div`).style.opacity = "100%"
+            document.querySelector(`#${e.target.id} div`).style.height = "100%"
         }
         setModal(true)
         setRenderModal(render)
     }
     const onDragLeave = (e) => {
         if (e.target.id !== '') {
-            document.querySelector(`#${e.target.id} div`).style.opacity = "100%"
+
         }
 
     }
@@ -34,7 +34,7 @@ function List(props) {
         switch (renderModa) {
             case 1:
                 return (
-                    <DetallesTarea tarea={tarea}  />
+                    <DetallesTarea tarea={tarea} />
                 )
             case 2:
                 return (
@@ -42,12 +42,12 @@ function List(props) {
                 )
             case 3:
                 return (
-                    <Realizada tarea={tarea} setModal={setModal}/>
+                    <Realizada tarea={tarea} setModal={setModal} />
                 )
-            case 4: 
-                    return(
-                       <Edit tarea={tarea} setModal={setModal}/>
-                    )
+            case 4:
+                return (
+                    <Edit tarea={tarea} setModal={setModal} />
+                )
         }
 
     }
@@ -62,10 +62,10 @@ function List(props) {
                     </div>
                         <div className="card-body" id="tareas"
                         >
-                           <Badges tareas={props.tareas} tipo={false} 
-                                setModal={setModal} 
-                                setRenderModal={setRenderModal} 
-                                setTarea={setTarea}/>
+                            <Badges tareas={props.tareas} tipo={false}
+                                setModal={setModal}
+                                setRenderModal={setRenderModal}
+                                setTarea={setTarea} />
                         </div>
                     </div>
                 </div>
@@ -79,43 +79,67 @@ function List(props) {
                             onDragEnter={(e) => onDragEnter(e)}
                             onDrop={(e) => onDrop(e, 2)}
                             onDragLeave={(e) => onDragLeave(e)}
-                            >
-                                <Badges tareas={props.tareas} tipo="avance" 
-                                setModal={setModal} 
-                                setRenderModal={setRenderModal} 
-                                setTarea={setTarea}/>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-4">
-                        <div className="card bg-principal">
-                            <div className="card-header bg-success">
-                                Realizada
+                        >
+                            <div className="cardContenedor">
+                                <div className="avanceCover">
+                                    <Badges tareas={props.tareas} tipo="avance"
+                                        setModal={setModal}
+                                        setRenderModal={setRenderModal}
+                                        setTarea={setTarea} />
+                                    <div className="p-5 mt-2 DragZone text-center">
+                                        <p className="h6">Arrastra tus tareas</p>
+                                    </div>
+                                </div>
+                                <div className="cardbodyCover">
+                                    <div className="DragCover">
+                                        <p className="h6">Arrastra tus tareas</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="card-body" id="realizada"
-                                onDragOver={(e) => e.preventDefault()}
-                                onDragEnter={(e) => onDragEnter(e)}
-                                onDrop={(e) => onDrop(e, 3)}
-                                onDragLeave={(e) => onDragLeave(e)}>
-                                    <Badges tareas={props.tareas} tipo="realizada" 
-                                    setModal={setModal} 
-                                    setRenderModal={setRenderModal} 
-                                    setTarea={setTarea}/>
-                            </div>
-
                         </div>
                     </div>
                 </div>
-                <Modal toggle={modal} isClose={setModal}>
-                    {renderModal(renderModa)}
-                </Modal>
+                <div className="col-4">
+                    <div className="card bg-principal">
+                        <div className="card-header bg-success">
+                            Realizada
+                            </div>
+                        <div className="card-body" id="realizada"
+                            onDragOver={(e) => e.preventDefault()}
+                            onDragEnter={(e) => onDragEnter(e)}
+                            onDrop={(e) => onDrop(e, 3)}
+                            onDragLeave={(e) => onDragLeave(e)}>
+                            <div className="cardContenedor">
+                                <div className="avanceCover">
+                                    <Badges tareas={props.tareas} tipo="realizada"
+                                        setModal={setModal}
+                                        setRenderModal={setRenderModal}
+                                        setTarea={setTarea} />
+                                    <div className="p-5 mt-2 DragZone text-center">
+                                        <p className="h6">Arrastra tus tareas</p>
+                                    </div>
+                                </div>
+                                <div className="cardbodyCover">
+                                    <div className="DragCover">
+                                        <p className="h6">Arrastra tus tareas</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <Modal toggle={modal} isClose={setModal}>
+                {renderModal(renderModa)}
+            </Modal>
         </>
     )
 }
 
 const PropsStore = state => {
     return {
-                tareas: state.tareas.tareas,
+        tareas: state.tareas.tareas,
         colaboradores: state.colaboradores.colaboradores,
         usuario: state.usuario.usuario
     }

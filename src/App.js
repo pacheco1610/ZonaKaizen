@@ -13,7 +13,8 @@ import Tareas from './secciones/tareas/index'
 import Colaboradores from './secciones/colaboradores/index'
 import Clientes from './secciones/clientes/index'
 import Invitacion from './secciones/nuevosUsuarios/invitacion'
-import Login from './secciones/login/index'
+import MiReporte from './secciones/miReporte/index'
+import Reportes from './secciones/reportes/index'
 /*Perfil de puestos */
 import Perfil from './secciones/perfilPuestos/index'
 import NuevoPerfil from './secciones/perfilPuestos/nuevoPerfil'
@@ -38,6 +39,12 @@ function App() {
               </Route>
               <Route exact path="/clientes">
                 <Clientes />
+              </Route>
+              <Route exact path="/mireporte">
+                <MiReporte />
+              </Route>
+              <Route exact path="/reportes">
+                <Reportes />
               </Route>
               <Route exact path="/perfildepuestos">
                 <Perfil>

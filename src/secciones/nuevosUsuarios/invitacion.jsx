@@ -9,12 +9,21 @@ export default function Invitacion() {
     useEffect(() => {
         firebase.auth().onAuthStateChanged(async user => {
             if (user) {
-                await firebase.database().ref('usuarios').orderByChild('uid').equalTo(`${id}`).on('child_added', snap => {
+                await firebase.database().ref('usuarios').orderByChild('uid').equalTo(`${id}`).on('child_added', async snap => {
                     firebase.database().ref(`usuarios/${snap.key}`).update({
                         photo:user.photoURL,
                         uid:user.uid,
                         nombre:user.displayName,
                         estatus:true
+                    })
+                    await firebase.database().ref('tareas').orderByChild('empresa').equalTo(snap.val().empresa).on('child_added', tarea => {
+                        const misdatos = (tarea.val().responsables.find(item => item.uid === id))
+                        if (misdatos !== undefined) {
+                            const responsable = tarea.val().responsables.find(item => item.uid === id)
+                            const filter = tarea.val().responsables.filter(item => item.uid !== id)
+                            const array = filter.concat({ estatusTarea: false, fechaAsing: responsable.fechaAsing, uid: user.uid })
+                            firebase.database().ref(`tareas/${tarea.key}`).update({ ...tarea.val(), responsables: array })
+                        }
                     })
                 })
                 window.location.replace(window.location.origin);
@@ -32,6 +41,7 @@ export default function Invitacion() {
 
     }, [])
     const google = new firebase.auth.GoogleAuthProvider();
+    const facebook = new firebase.auth.FacebookAuthProvider();
     const socialLogin = async (prev) => {
         await firebase
             .auth()
@@ -52,7 +62,9 @@ export default function Invitacion() {
                 <div className="p-2 divInvitacion">
                     <p className="tituloInvitacion h4">Bienvenid@ {data.nombre}</p>
                     <div className="descripcionInvitacion">Acabas de recibir una invitación para comenzar a trabajar en {empresa.nombre}</div>
-                    <button className="btn btn-google mt-3" onClick={() => socialLogin(google)}>continuar con Google</button>
+                    <button className="btn btn-google mt-3" onClick={() => socialLogin(google)}>Continuar con Google</button>
+                    <br/>
+                    <button className="btn btn-facebook mt-3" onClick={() => socialLogin(facebook)}>Continuar con Facebook</button>
                 </div>
             </div>
         )

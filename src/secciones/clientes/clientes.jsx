@@ -1,35 +1,41 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { connect } from 'react-redux'
-import {cliente_action} from '../../store/actions/clientesActions'
-
+import { cliente_action } from '../../store/actions/clientesActions'
+import Modal from '../../layout/modal/index'
+import EditCliente from './editCliente'
 function Clientes(props) {
-
-    const HandleCliente = (cliente)=>{
+    const [modal, setModal] = useState(false)
+    const HandleCliente = (cliente) => {
         props.cliente_action(cliente)
-        props.toggleRight(2)
+        setModal(true)
     }
     if (props.clientes.filter(item => item.tCliente === props.tCliente).length > 0) {
         return (
-            <div className="contenedorTabla">
-                <table className=" text-white">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Empresa</th>
-                            <th scope="col">Teléfono</th>
-                        </tr>
-                    </thead>
-                    <tbody className="bg-principal">
-                        {props.clientes.filter(item => item.tCliente === props.tCliente).map(cliente =>
-                            <tr className="trButton" onClick={()=>HandleCliente(cliente)}>
-                                <td>{cliente.nombre} {cliente.apellido}</td>
-                                <td>{cliente.empresa}</td>
-                                <td>{cliente.telefono}</td>
+            <>
+                <div className="contenedorTabla">
+                    <table className=" text-white">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Empresa</th>
+                                <th scope="col">Teléfono</th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody className="bg-principal">
+                            {props.clientes.filter(item => item.tCliente === props.tCliente).map(cliente =>
+                                <tr className="trButton" onClick={() => HandleCliente(cliente)}>
+                                    <td>{cliente.nombre} {cliente.apellido}</td>
+                                    <td>{cliente.empresa}</td>
+                                    <td>{cliente.telefono}</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+                <Modal toggle={modal} isClose={setModal}>
+                    <EditCliente />
+                </Modal>
+            </>
         )
     } else {
         return (
@@ -58,7 +64,7 @@ const PropsStore = state => {
         clientes: state.clientes.clientes
     }
 }
-const functionStore ={
+const functionStore = {
     cliente_action
 }
-export default connect(PropsStore,functionStore)(Clientes)
+export default connect(PropsStore, functionStore)(Clientes)

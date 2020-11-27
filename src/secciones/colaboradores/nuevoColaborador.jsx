@@ -8,18 +8,10 @@ import randomColor from 'randomcolor'
 import Invitacion from '../nuevosUsuarios/invitacion'
 
 function NuevoColaborador(props) {
-    const [estado, setEstado] = useState({permisos:[
-        {  
-            direccion:"/",
-            icono:"fas fa-calendar-check",
-            key:1,
-            titulo:"Tareas",
-        }
-        ],menu:props.permisos,puesto:{Puesto:'Selecciona un puesto'},nombre:'',referencia:''})
+    const [estado, setEstado] = useState({permisos:[],menu:props.permisos,puesto:{Puesto:'Selecciona un puesto'},nombre:'',referencia:''})
 
     useEffect(() => {
         setEstado({...estado,menu:props.permisos})
-        console.log(window.location.origin)
     }, [props.permisos])
 
     const SelectPuesto = (itemPuesto) =>{
@@ -38,13 +30,10 @@ function NuevoColaborador(props) {
         document.querySelector('.PermisosCover').classList.toggle('toggle')
     }
     const removerPermiso = (permiso) =>{
-        if (permiso.key!==1) {
-            const array = estado.permisos.filter(item => item.key !== permiso.key)
-            const ArrayMenu = estado.menu
-            ArrayMenu.push(permiso)
-            console.log(ArrayMenu)
-            setEstado({...estado,permisos:array})
-        }
+        const array = estado.permisos.filter(item => item.key !== permiso.key)
+        const ArrayMenu = estado.menu
+        ArrayMenu.push(permiso)
+        setEstado({...estado,permisos:array})
     }
     const AltaColaborador = () =>{
         if (estado.puesto.Puesto==='Selecciona un puesto') {
@@ -67,14 +56,7 @@ function NuevoColaborador(props) {
                     puntaje:0
                 }
             }).then(()=>{
-                setEstado({...estado,permisos:[
-                    {  
-                        direccion:"/",
-                        icono:"fas fa-calendar-check",
-                        key:1,
-                        titulo:"Tareas",
-                    }
-                    ],menu:props.permisos,puesto:{Puesto:'Selecciona un puesto'},nombre:'',referencia:referenciaRandom})
+                setEstado({...estado,permisos:[],menu:props.permisos,puesto:{Puesto:'Selecciona un puesto'},nombre:'',referencia:referenciaRandom})
                 toggleAlert('sucefull','Agregado Correctamente')
                 document.getElementById('copinvitation').classList.toggle('copyinvitation')
             })

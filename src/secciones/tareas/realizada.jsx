@@ -28,7 +28,7 @@ function Realizada(props) {
         e.preventDefault()
         const responsable = props.tarea.responsables.find(item => item.uid === props.usuario.uid)
         const filter = props.tarea.responsables.filter(item => item.uid !== props.usuario.uid)
-        filter.push({ ...responsable, estatusTarea: "realizada" })
+        filter.push({ ...responsable, estatusTarea: "realizada",fechaRealizada:moment().format('YYYY-MM-DD') })
         firebase.database().ref(`tareas/${props.tarea.uidTarea}/`).update({ ...props.tarea, responsables: filter,minfo:"" })
         props.setModal(false)
         document.getElementById("mensaje").reset();

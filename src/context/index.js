@@ -10,7 +10,7 @@ import {puestos} from './puestos'
 import {colaboradores} from './colaboradores'
 import {clientes} from './clientes'
 import {tareas} from './tareas'
-
+import {usuarios} from './usuarios'
 function Index(props) {
     const [loading,setLoading]=useState(true)
     useEffect(() => {
@@ -30,11 +30,12 @@ function Index(props) {
                 const snap = snapshot.val()[Object.keys(snapshot.val())[0]]
                 const usuario = Object.assign(snap,{registrado:true})
                 props.usuario_action(usuario)
+                usuarios(props.firebase,usuario.uid)
                 empresa(props.firebase,snap.empresa)
                 puestos(props.firebase,snap.empresa)
                 colaboradores(props.firebase,snap.empresa)
                 clientes(props.firebase,snap.empresa)
-                tareas(props.firebase,snap.empresa,snap.uid)
+                tareas(props.firebase,snap.empresa,props.auth.uid)
                 setLoading(false)
             }
             

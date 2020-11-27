@@ -7,8 +7,10 @@ export function colaboradores(firebase,empresa){
         store.dispatch(colaboradores_action(Object.assign(snap.val(),{id:snap.key})))
     })
     firebase.database().ref('usuarios').orderByChild('empresa').equalTo(empresa).on('child_changed',snap=>{
-        const filter = store.getState().puestos.puestos.filter(item => item.uid !== snap.key)
-        filter.push(Object.assign(snap.val(),{uid:snap.key}))
+        console.log('tenemos cambio')
+        const filter = store.getState().puestos.puestos.filter(item => item.uid !== snap.uid)
+        console.log(filter)
+        filter.push(Object.assign(snap.val()))
         store.dispatch(colaborador_action(filter))
     })
 }

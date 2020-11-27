@@ -46,8 +46,9 @@ a:hover {
 
 .bg-correcto{background-color: var(--sucefull) !important; color: #ffffff !important; }
 
-.bg-text-blue { color: var(--blueCrayola) !important; }
+.bg-text-warning { color: var(--warning) !important; }
 
+.bg-text-secundario{color: var(--textoSecundario) !important;}
 .bg-text-secundario{color: var(--textoSecundario) !important;}
 
 .btn-primary {
@@ -60,8 +61,10 @@ a:hover {
 }
 
 #sidebar-container {
-    overflow-y: auto;   
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 16rem;
 }
   
 #sidebar-container .logo{
@@ -69,9 +72,22 @@ a:hover {
 }
   
 #sidebar-container .menu {
-    width: 15rem;
-}
+    overflow-y: scroll;
 
+}
+.menu::-webkit-scrollbar {
+    width: 5px;
+}
+.menu::-webkit-scrollbar:vertical {
+    width:5px;
+}
+.menu::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: visible;
+} 
+.menu::-webkit-scrollbar-thumb {
+    background-color: var(--secundario);
+    border-radius: 10px;
+}
 #content {
     overflow-y: auto;
     height: 100vh;
@@ -88,10 +104,6 @@ a:hover {
     display: visible;
 } 
 
-#content::-webkit-scrollbar:horizontal {
-    height: 10px;
-}
-
 #content::-webkit-scrollbar-thumb {
     background-color: #dfdfdf;
     border-radius: 10px;
@@ -101,11 +113,7 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
 }
-.img-perfil{
-    width: 7rem !important;
-    height: 7rem !important;
-    border:5px solid var(--blueCrayola);
-}
+
 
 @media (max-width: 768px) {
     #sidebar-container {
@@ -258,4 +266,32 @@ a:hover {
     top: .2rem;
     left: 0;
     right: 0;
+}
+.img-perfil{
+    width: 7rem !important;
+    height: 7rem !important;
+    border:5px solid var(--blueCrayola);
+    cursor: pointer;
+    display: block;
+    opacity: 1;
+    z-index: 1000;
+    transition: ease-in-out .5s;
+}
+.imgContenido{
+    width: 7rem !important;
+    height: 7rem !important;
+    background-color: var(--secundario);
+    position: absolute;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+}
+.ImgPerfilDiv{
+    display: flex;
+    justify-content: center;
+}
+.ImgPerfilDiv:hover img{
+    opacity: 0.3;
 }

@@ -11,10 +11,11 @@ import Spinner from './spinnerNuevaTarea'
 function Nuevatarea(props) {
     const [estado, setEstado] = useState({ colaboradores: props.colaboradores, responsablesFirebase: [], responsables: [], clientes: [], cliente: { nombre: '', apellido: '' } })
     const [fecha, setFecha] = useState(moment().format('YYYY-MM-DD'))
-    const [hora, setHora] = useState(moment().format('hh:mm:ss'))
+    const [hora, setHora] = useState('00:00')
     const [archivos, setArchivos] = useState([])
     const [nombreArchivos, setNombreArchivos] = useState([])
-    const [spinner, setSpinner]= useState(false)
+    const [spinner, setSpinner] = useState(false)
+    const [fechaAsing, setFechaAsing] = useState(false)
     useEffect(() => {
         setEstado({ ...estado, colaboradores: props.colaboradores, clientes: props.clientes })
     }, [props])
@@ -59,8 +60,18 @@ function Nuevatarea(props) {
         else if (!estado.descripcion) {
             document.getElementById('descripcion').classList.add('inputRquerid')
         }
+        else if (fechaAsing !==true){
+            document.getElementById('NuevaTarea').scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('sinFecha').classList.add('inputRquerid')
+        }
+        else if (hora === "00:00") {
+            toggleAlert('warning', 'Agregada una hora de entrega')
+            document.getElementById('NuevaTarea').scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('datadrop').classList.toggle('datadropToggle')
+            document.getElementById('coverPicker').classList.toggle('datadropToggle')
+            document.querySelector('.datepicker---time-input---2ICRB input').classList.add('inputRquerid')
+        }   
         else {
-            let comprobar = 0
             const params = {
                 titulo: estado.titulo,
                 responsables: estado.responsablesFirebase,
@@ -83,34 +94,42 @@ function Nuevatarea(props) {
             }
             const referencia = (firebase.database().ref('/tareas').push(params)).key
 
-            await archivos.map(archivo=>{
+            await archivos.map(archivo => {
                 firebase.storage().ref(`${referencia}/${archivo.name}`).put(archivo)
-                .on('state_changed', (snapshot) => {
-                    setSpinner(true)
-                }, (error) => {
-                    console.error(error.message)
-                }, () => {
-                    setSpinner(false)
-                })
+                    .on('state_changed', (snapshot) => {
+                        setSpinner(true)
+                    }, (error) => {
+                        console.error(error.message)
+                    }, () => {
+                        setSpinner(false)
+                    })
             })
-            setEstado({ colaboradores: props.colaboradores,archivos:[], titulo: "", descripcion: "", clientes: props.clientes, responsables: [], cliente: { nombre: '', apellido: '', descripcion: '' } })
+            setEstado({ colaboradores: props.colaboradores, archivos: [], titulo: "", descripcion: "", clientes: props.clientes, responsables: [], responsablesFirebase: [], cliente: { nombre: '', apellido: '', descripcion: '' } })
             toggleAlert('sucefull', 'Agregado Correctamente')
         }
     }
     return (
         <>
-            <button onClick={() => toggleTarea()} className="bg-primary btn rounded-circle text-white btn-tarea"><i className="fas fa-plus"></i></button>
+            {props.RenderButton === true &&
+                <h2>
+                    <button onClick={() => toggleTarea()} className="bg-primary btn rounded-circle text-white btn-tarea"><i className="fas fa-plus"></i></button>
+                </h2>
+            }
+
             <div id="NuevaTarea" className="NuevaTarea bg-principal rounded p-3 toggleNuevatarea">
-            <Spinner spinner={spinner}/>
+                <Spinner spinner={spinner} />
                 <div className="form-group ">
                     <div className="dropInputPicker" onClick={() => dataDrop()}>
-                        <DateInput
+                        {fechaAsing
+                            ?  <DateInput
                             value={fecha}
                             onChange={value => {
                                 setFecha(value);
-                            }}
+                            }} />
+                            :  <input onClick={()=>setFechaAsing(true)} type="text" id="sinFecha" value="Sin fecha asignada" className="form-control InputGeneral"/>
+                        }
 
-                        />
+                       
                     </div>
                     <div id="datadrop" className="datadrop datadropToggle p-2 rounded">
                         <DatePicker
