@@ -13,10 +13,19 @@ function ReporteDia(props) {
     const [TareasAgendadas, setTareasAgendadas] = useState([])
     const [objetivo, setObjetivo] = useState('')
     const [confirmacion, setConfirmado] = useState(undefined)
+    const [noRealizadas, setnoRealizadas] = useState([])
     useEffect(() => {
         setTareasRealizadas(props.tareas.filter(tarea => tarea.responsables.find(responsable => responsable.uid = props.usuario.uid).estatusTarea === "realizada"))
         setTareasAgendadas(props.tareas.filter(tarea => tarea.fechaEvento === moment().add(1, 'days').format('YYYY-MM-DD')))
+        setnoRealizadas(props.tareas.filter(tarea =>
+            filterRealizadas(tarea)
+        ))
     }, [props.tareas])
+    const filterRealizadas = (tarea) => {
+        if (tarea.fechaEvento === moment().format('YYYY-MM-DD') && tarea.responsables.find(item => item.uid === props.usuario.uid).estatusTarea !== 'false') {
+            return (tarea)
+        }
+    }
     const TareaToggle = () => {
         document.getElementById('divNuevatarea').classList.toggle('toggleNuevatarea')
         document.getElementById('NuevaTarea').classList.toggle('toggleNuevatarea')
@@ -24,16 +33,23 @@ function ReporteDia(props) {
     const enviarReporte = (e) => {
         e.preventDefault()
         if (confirmacion !==undefined) {
-            const reportes = [
+            const reporte = 
                 {
                     fecha:moment().format('YYYY-MM-DD'),
                     TareasRealizadas:TareasRealizadas,
                     TareasAgendadas:TareasAgendadas,
-                    objetivo:objetivo
-        
+                    TareasNoRealizadas:noRealizadas,
+                    Retroalimentacion:objetivo,
+                    estatus:true
                 }
-            ]
-            firebase.database().ref(`usuarios`).orderByChild('uid').equalTo(props.usuario.uid).update({reportes: reportes})
+            if (props.usuario.reportes!==undefined) {
+                const arreglo = props.usuario.reportes.filter(item =>  moment(item.fecha).format('YYYY-MM-DD') !==  moment().format('YYYY-MM-DD'))
+                arreglo.push(reporte)
+                firebase.database().ref(`usuarios/${props.usuario.key}`).update({reportes:arreglo})
+            }else{
+                const reportes= [reporte]
+                firebase.database().ref(`usuarios/${props.usuario.key}`).update({reportes:reportes})
+            }
         }else{
             document.getElementById('confirmacion').classList.add('border')
             document.getElementById('confirmacion').classList.add('border-danger')
@@ -54,7 +70,7 @@ function ReporteDia(props) {
                     <div className="col-12">
                         <div class="form-group"><p class="h6 d-inline bg-text-secundario">
                             <strong className="">Retroalimentacion</strong></p>
-                            <textarea id="descripcion" onClick={(e) => setObjetivo(e.target.value)} className="form-control InputGeneral mt-2" required></textarea>
+                            <textarea id="descripcion" onChange={(e) => setObjetivo(e.target.value)} className="form-control InputGeneral mt-2" required></textarea>
                         </div>
                     </div>
                     <div className="col-12">

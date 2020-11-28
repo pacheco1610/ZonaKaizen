@@ -28,7 +28,7 @@ function Index(props) {
             }
             else {
                 const snap = snapshot.val()[Object.keys(snapshot.val())[0]]
-                const usuario = Object.assign(snap,{registrado:true})
+                const usuario = Object.assign(snap,{registrado:true,key:Object.keys(snapshot.val())[0]})
                 props.usuario_action(usuario)
                 usuarios(props.firebase,usuario.uid)
                 empresa(props.firebase,snap.empresa)
